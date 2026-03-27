@@ -120,10 +120,41 @@ Inventory Manager Dashboard
 
 <br>
 
+<h2>Inventory Records</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Type</th>
+            <th>Stock</th>
+            <th>Warehouse</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="inventoryTable">
+        <tr>
+            <td>Rice</td>
+            <td>Crop</td>
+            <td>500</td>
+            <td>Warehouse A</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
 <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
 </a>
 
 </div>
+
+<script>
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>
 
 </body>
 </html>
