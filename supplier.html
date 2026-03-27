@@ -19,7 +19,6 @@ Supplier Dashboard
 <h3>Receive Harvested Crops</h3>
 <p>Collect crops from farmers.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Crop Name:</label><br>
 <input type="text" placeholder="Enter crop name"><br><br>
@@ -39,7 +38,6 @@ Supplier Dashboard
 <h3>Restock Requests</h3>
 <p>Receive restock requests from system.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -56,7 +54,6 @@ Supplier Dashboard
 <h3>Stock Level Alerts</h3>
 <p>Check low stock notifications.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -73,7 +70,6 @@ Supplier Dashboard
 <h3>Delivery Schedule</h3>
 <p>Manage delivery and supply schedule.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Delivery Date:</label><br>
 <input type="date"><br><br>
@@ -93,10 +89,43 @@ Supplier Dashboard
 
 <br>
 
+<!-- ✅ Data Table Added -->
+<h2>Supplier Records</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Crop/Product</th>
+            <th>Farmer/Supplier</th>
+            <th>Quantity</th>
+            <th>Delivery Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="supplierTable">
+        <tr>
+            <td>Wheat</td>
+            <td>Rahim</td>
+            <td>200</td>
+            <td>2026-03-28</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
 <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
 </a>
 
 </div>
+
+<!-- ✅ JavaScript for Delete -->
+<script>
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>
 
 </body>
 </html>
