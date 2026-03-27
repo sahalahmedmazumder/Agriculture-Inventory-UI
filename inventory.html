@@ -18,28 +18,110 @@ Inventory Manager Dashboard
 <div class="card">
 <h3>Check Stock Levels</h3>
 <p>Monitor crop and fertilizer stock.</p>
+
+<form>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product name"><br><br>
+
+<label>Product Type</label><br>
+<select>
+<option>Crop</option>
+<option>Seed</option>
+<option>Fertilizer</option>
+</select><br><br>
+
+<label>Current Stock</label><br>
+<input type="number" placeholder="Enter stock quantity"><br><br>
+
+<label>Warehouse Location</label><br>
+<input type="text" placeholder="Enter warehouse"><br><br>
+
+<button type="submit">Check</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Warehouse Verification</h3>
 <p>Verify stored crops in warehouse.</p>
+
+<form>
+<label>Warehouse ID</label><br>
+<input type="text" placeholder="Enter ID"><br><br>
+
+<label>Crop Name</label><br>
+<input type="text" placeholder="Enter crop"><br><br>
+
+<label>Stored Quantity</label><br>
+<input type="number" placeholder="Enter quantity"><br><br>
+
+<label>Verification Date</label><br>
+<input type="date"><br><br>
+
+<button type="submit">Verify</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Expiry Check</h3>
 <p>Check expired seeds or fertilizers.</p>
+
+<form>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product"><br><br>
+
+<label>Product Type</label><br>
+<select>
+<option>Seed</option>
+<option>Fertilizer</option>
+</select><br><br>
+
+<label>Expiry Date</label><br>
+<input type="date"><br><br>
+
+<label>Status</label><br>
+<select>
+<option>Valid</option>
+<option>Expired</option>
+</select><br><br>
+
+<button type="submit">Check Expiry</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Stock Updates</h3>
 <p>Update inventory and storage data.</p>
+
+<form>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product"><br><br>
+
+<label>Update Quantity</label><br>
+<input type="number" placeholder="Enter new quantity"><br><br>
+
+<label>Update Type</label><br>
+<select>
+<option>Add Stock</option>
+<option>Remove Stock</option>
+</select><br><br>
+
+<label>Update Date</label><br>
+<input type="date"><br><br>
+
+<button type="submit">Update Stock</button>
+</form>
+
 </div>
 
 </div>
 
 <br>
 
-<a class="backbtn" href="index.html">⬅ Back to Home</a>
+<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
+</a>
 
 </div>
 
