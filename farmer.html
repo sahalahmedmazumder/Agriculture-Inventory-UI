@@ -18,28 +18,102 @@ Farmer Dashboard
 <div class="card">
 <h3>Submit Crop Information</h3>
 <p>Enter crop type, quantity and harvest date.</p>
+
+<form>
+<label>Crop Type</label><br>
+<input type="text" placeholder="Enter crop name"><br><br>
+
+<label>Quantity</label><br>
+<input type="number" placeholder="Enter quantity"><br><br>
+
+<label>Unit</label><br>
+<select>
+<option>kg</option>
+<option>ton</option>
+<option>box</option>
+</select><br><br>
+
+<label>Harvest Date</label><br>
+<input type="date"><br><br>
+
+<button type="submit">Submit</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Market Demand</h3>
 <p>View required crop type and quantity.</p>
+
+<form>
+<label>Crop Type</label><br>
+<input type="text" placeholder="Required crop"><br><br>
+
+<label>Required Quantity</label><br>
+<input type="number" placeholder="Enter amount"><br><br>
+
+<label>Market Location</label><br>
+<input type="text" placeholder="Enter market"><br><br>
+
+<button type="submit">Check Demand</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Delivery Schedule</h3>
 <p>Check delivery timing from supplier.</p>
+
+<form>
+<label>Crop Type</label><br>
+<input type="text" placeholder="Crop name"><br><br>
+
+<label>Delivery Date</label><br>
+<input type="date"><br><br>
+
+<label>Supplier Name</label><br>
+<input type="text" placeholder="Enter supplier"><br><br>
+
+<label>Delivery Status</label><br>
+<select>
+<option>Pending</option>
+<option>Scheduled</option>
+<option>Completed</option>
+</select><br><br>
+
+<button type="submit">View Schedule</button>
+</form>
+
 </div>
 
 <div class="card">
 <h3>Production Details</h3>
 <p>Manage harvest production information.</p>
+
+<form>
+<label>Planting Date</label><br>
+<input type="date"><br><br>
+
+<label>Expected Harvest</label><br>
+<input type="date"><br><br>
+
+<label>Estimated Production (kg)</label><br>
+<input type="number" placeholder="Enter amount"><br><br>
+
+<label>Fertilizer Used</label><br>
+<input type="text" placeholder="Enter fertilizer name"><br><br>
+
+<button type="submit">Save Details</button>
+</form>
+
 </div>
 
 </div>
 
 <br>
 
-<a class="backbtn" href="index.html">⬅ Back to Home</a>
+<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
+</a>
 
 </div>
 
