@@ -19,7 +19,6 @@ Supermarket Dashboard
 <h3>Sales Data</h3>
 <p>View quantity sold and remaining stock.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -39,7 +38,6 @@ Supermarket Dashboard
 <h3>Stock Availability</h3>
 <p>Check available products.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -56,7 +54,6 @@ Supermarket Dashboard
 <h3>Restock Request</h3>
 <p>Send restock request to system.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -73,7 +70,6 @@ Supermarket Dashboard
 <h3>Product Delivery</h3>
 <p>Receive processed agricultural products.</p>
 
-<!-- Added Input Fields -->
 <form>
 <label>Product Name:</label><br>
 <input type="text" placeholder="Enter product name"><br><br>
@@ -90,10 +86,41 @@ Supermarket Dashboard
 
 <br>
 
+<!-- ✅ Data Table Added -->
+<h2>Sales & Inventory Records</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Sold</th>
+            <th>Remaining</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="salesTable">
+        <tr>
+            <td>Tomato</td>
+            <td>50</td>
+            <td>150</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
 <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
 </a>
 
 </div>
+
+<!-- ✅ JavaScript for Delete -->
+<script>
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>
 
 </body>
 </html>
