@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Farmer Dashboard</title>
+<title>Inventory Manager</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="navbar">
-Farmer Dashboard
+Inventory Manager Dashboard
 </div>
 
 <div class="main">
@@ -16,94 +16,102 @@ Farmer Dashboard
 <div class="cards">
 
 <div class="card">
-<h3>Submit Crop Information</h3>
-<p>Enter crop type, quantity and harvest date.</p>
+<h3>Check Stock Levels</h3>
+<p>Monitor crop and fertilizer stock.</p>
 
 <form>
-<label>Crop Type</label><br>
-<input type="text" placeholder="Enter crop name"><br><br>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product name"><br><br>
 
-<label>Quantity</label><br>
+<label>Product Type</label><br>
+<select>
+<option>Crop</option>
+<option>Seed</option>
+<option>Fertilizer</option>
+</select><br><br>
+
+<label>Current Stock</label><br>
+<input type="number" placeholder="Enter stock quantity"><br><br>
+
+<label>Warehouse Location</label><br>
+<input type="text" placeholder="Enter warehouse"><br><br>
+
+<button type="submit">Check</button>
+</form>
+
+</div>
+
+<div class="card">
+<h3>Warehouse Verification</h3>
+<p>Verify stored crops in warehouse.</p>
+
+<form>
+<label>Warehouse ID</label><br>
+<input type="text" placeholder="Enter ID"><br><br>
+
+<label>Crop Name</label><br>
+<input type="text" placeholder="Enter crop"><br><br>
+
+<label>Stored Quantity</label><br>
 <input type="number" placeholder="Enter quantity"><br><br>
 
-<label>Unit</label><br>
+<label>Verification Date</label><br>
+<input type="date"><br><br>
+
+<button type="submit">Verify</button>
+</form>
+
+</div>
+
+<div class="card">
+<h3>Expiry Check</h3>
+<p>Check expired seeds or fertilizers.</p>
+
+<form>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product"><br><br>
+
+<label>Product Type</label><br>
 <select>
-<option>kg</option>
-<option>ton</option>
-<option>box</option>
+<option>Seed</option>
+<option>Fertilizer</option>
 </select><br><br>
 
-<label>Harvest Date</label><br>
+<label>Expiry Date</label><br>
 <input type="date"><br><br>
 
-<button type="submit">Submit</button>
-</form>
-
-</div>
-
-<div class="card">
-<h3>Market Demand</h3>
-<p>View required crop type and quantity.</p>
-
-<form>
-<label>Crop Type</label><br>
-<input type="text" placeholder="Required crop"><br><br>
-
-<label>Required Quantity</label><br>
-<input type="number" placeholder="Enter amount"><br><br>
-
-<label>Market Location</label><br>
-<input type="text" placeholder="Enter market"><br><br>
-
-<button type="submit">Check Demand</button>
-</form>
-
-</div>
-
-<div class="card">
-<h3>Delivery Schedule</h3>
-<p>Check delivery timing from supplier.</p>
-
-<form>
-<label>Crop Type</label><br>
-<input type="text" placeholder="Crop name"><br><br>
-
-<label>Delivery Date</label><br>
-<input type="date"><br><br>
-
-<label>Supplier Name</label><br>
-<input type="text" placeholder="Enter supplier"><br><br>
-
-<label>Delivery Status</label><br>
+<label>Status</label><br>
 <select>
-<option>Pending</option>
-<option>Scheduled</option>
-<option>Completed</option>
+<option>Valid</option>
+<option>Expired</option>
 </select><br><br>
 
-<button type="submit">View Schedule</button>
+<button type="submit">Check Expiry</button>
 </form>
 
 </div>
 
 <div class="card">
-<h3>Production Details</h3>
-<p>Manage harvest production information.</p>
+<h3>Stock Updates</h3>
+<p>Update inventory and storage data.</p>
 
 <form>
-<label>Planting Date</label><br>
+<label>Product Name</label><br>
+<input type="text" placeholder="Enter product"><br><br>
+
+<label>Update Quantity</label><br>
+<input type="number" placeholder="Enter new quantity"><br><br>
+
+<label>Update Type</label><br>
+<select>
+<option>Add Stock</option>
+<option>Remove Stock</option>
+</select><br><br>
+
+<label>Update Date</label><br>
 <input type="date"><br><br>
 
-<label>Expected Harvest</label><br>
-<input type="date"><br><br>
-
-<label>Estimated Production (kg)</label><br>
-<input type="number" placeholder="Enter amount"><br><br>
-
-<label>Fertilizer Used</label><br>
-<input type="text" placeholder="Enter fertilizer name"><br><br>
-
-<button type="submit">Save Details</button>
+<button type="submit">Update Stock</button>
 </form>
 
 </div>
@@ -112,10 +120,41 @@ Farmer Dashboard
 
 <br>
 
+<h2>Inventory Records</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Type</th>
+            <th>Stock</th>
+            <th>Warehouse</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="inventoryTable">
+        <tr>
+            <td>Rice</td>
+            <td>Crop</td>
+            <td>500</td>
+            <td>Warehouse A</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
 <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
 </a>
 
 </div>
+
+<script>
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>
 
 </body>
 </html>
