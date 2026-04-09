@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Check Stock Levels</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+Check Stock Levels
+</div>
+
+<div class="main">
+
+<div class="card">
+
+<h3>Submit Crop Data</h3>
+
+<form onsubmit="saveData(event)">
+
+<label>Crop Type</label><br>
+<input type="text" id="crop"><br><br>
+
+<label>Quantity</label><br>
+<input type="number" id="qty"><br><br>
+
+<label>Unit</label><br>
+<select id="unit">
+<option>kg</option>
+<option>ton</option>
+<option>box</option>
+</select><br><br>
+
+<label>Harvest Date</label><br>
+<input type="date" id="date"><br><br>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+function saveData(e) {
+    e.preventDefault();
+
+    let crop = document.getElementById("crop").value;
+    let qty = document.getElementById("qty").value;
+    let unit = document.getElementById("unit").value;
+    let date = document.getElementById("date").value;
+
+    let data = JSON.parse(localStorage.getItem("cropData")) || [];
+
+    data.push({ crop, qty, unit, date });
+
+    localStorage.setItem("cropData", JSON.stringify(data));
+
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
