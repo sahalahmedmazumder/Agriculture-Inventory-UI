@@ -15,34 +15,79 @@ Farmer Dashboard
 
 <div class="cards">
 
+<!-- Only ONE card -->
 <div class="card">
 <h3>Submit Crop Information</h3>
 <p>Enter crop type, quantity and harvest date.</p>
-</div>
 
-<div class="card">
-<h3>Market Demand</h3>
-<p>View required crop type and quantity.</p>
-</div>
+<a href="Submitfarmer.html">
+<button>Submit</button>
+</a>
 
-<div class="card">
-<h3>Delivery Schedule</h3>
-<p>Check delivery timing from supplier.</p>
-</div>
-
-<div class="card">
-<h3>Production Details</h3>
-<p>Manage harvest production information.</p>
 </div>
 
 </div>
 
 <br>
 
-<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
-</a>
+<input type="text" id="searchInput" placeholder="Search crop">
+<button onclick="searchData()">Search</button>
+
+<h2>Submitted Crop Data</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+<thead>
+<tr>
+<th>Crop Type</th>
+<th>Quantity</th>
+<th>Unit</th>
+<th>Harvest Date</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="dataTable"></tbody>
+
+</table>
+
+<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System</a>
 
 </div>
+
+<script>
+window.onload = function() {
+    let data = JSON.parse(localStorage.getItem("cropData")) || [];
+    let table = document.getElementById("dataTable");
+
+    table.innerHTML = "";
+
+    data.forEach(item => {
+        let row = `<tr>
+            <td>${item.crop}</td>
+            <td>${item.qty}</td>
+            <td>${item.unit}</td>
+            <td>${item.date}</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>`;
+        table.innerHTML += row;
+    });
+}
+
+function deleteRow(btn) {
+    let row = btn.parentNode.parentNode;
+    row.remove();
+}
+
+function searchData() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let rows = document.querySelectorAll("#dataTable tr");
+
+    rows.forEach(row => {
+        let crop = row.cells[0].innerText.toLowerCase();
+        row.style.display = crop.includes(input) ? "" : "none";
+    });
+}
+</script>
 
 </body>
 </html>

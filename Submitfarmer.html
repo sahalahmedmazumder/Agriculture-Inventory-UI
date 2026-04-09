@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Check Stock Levels</title>
+<title>Submit Crop Information</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="navbar">
-Check Stock Levels
+Submit Crop Information
 </div>
 
 <div class="main">
@@ -20,10 +20,10 @@ Check Stock Levels
 <form onsubmit="saveData(event)">
 
 <label>Crop Type</label><br>
-<input type="text" id="crop"><br><br>
+<input type="text" id="crop" required><br><br>
 
 <label>Quantity</label><br>
-<input type="number" id="qty"><br><br>
+<input type="number" id="qty" required><br><br>
 
 <label>Unit</label><br>
 <select id="unit">
@@ -33,7 +33,7 @@ Check Stock Levels
 </select><br><br>
 
 <label>Harvest Date</label><br>
-<input type="date" id="date"><br><br>
+<input type="date" id="date" required><br><br>
 
 <button type="submit">Submit</button>
 
@@ -58,6 +58,7 @@ function saveData(e) {
 
     localStorage.setItem("cropData", JSON.stringify(data));
 
+    // Go back to first page
     window.location.href = "index.html";
 }
 </script>

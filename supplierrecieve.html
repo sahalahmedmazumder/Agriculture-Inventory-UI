@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Receive Harvested Crops</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+Receive Harvested Crops
+</div>
+
+<div class="main">
+
+<div class="card">
+
+<h3>Enter Crop Details</h3>
+
+<form onsubmit="saveData(event)">
+
+<label>Crop Name:</label><br>
+<input type="text" id="crop" required><br><br>
+
+<label>Farmer Name:</label><br>
+<input type="text" id="farmer" required><br><br>
+
+<label>Quantity Received:</label><br>
+<input type="number" id="qty" required><br><br>
+
+<label>Delivery Date:</label><br>
+<input type="date" id="date" required><br><br>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+function saveData(e) {
+    e.preventDefault();
+
+    let crop = document.getElementById("crop").value;
+    let farmer = document.getElementById("farmer").value;
+    let qty = document.getElementById("qty").value;
+    let date = document.getElementById("date").value;
+
+    let data = JSON.parse(localStorage.getItem("supplierData")) || [];
+
+    data.push({ crop, farmer, qty, date });
+
+    localStorage.setItem("supplierData", JSON.stringify(data));
+
+    window.location.href = "supplier.html";
+}
+</script>
+
+</body>
+</html>

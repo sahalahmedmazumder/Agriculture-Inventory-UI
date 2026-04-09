@@ -19,69 +19,9 @@ Supplier Dashboard
 <h3>Receive Harvested Crops</h3>
 <p>Collect crops from farmers.</p>
 
-<form>
-<label>Crop Name:</label><br>
-<input type="text" placeholder="Enter crop name"><br><br>
-
-<label>Farmer Name:</label><br>
-<input type="text" placeholder="Enter farmer name"><br><br>
-
-<label>Quantity Received:</label><br>
-<input type="number" placeholder="Enter quantity"><br><br>
-
-<button type="submit">Submit</button>
-</form>
-
-</div>
-
-<div class="card">
-<h3>Restock Requests</h3>
-<p>Receive restock requests from system.</p>
-
-<form>
-<label>Product Name:</label><br>
-<input type="text" placeholder="Enter product name"><br><br>
-
-<label>Requested Quantity:</label><br>
-<input type="number" placeholder="Enter requested quantity"><br><br>
-
-<button type="submit">View Request</button>
-</form>
-
-</div>
-
-<div class="card">
-<h3>Stock Level Alerts</h3>
-<p>Check low stock notifications.</p>
-
-<form>
-<label>Product Name:</label><br>
-<input type="text" placeholder="Enter product name"><br><br>
-
-<label>Current Stock:</label><br>
-<input type="number" placeholder="Enter current stock"><br><br>
-
-<button type="submit">Check</button>
-</form>
-
-</div>
-
-<div class="card">
-<h3>Delivery Schedule</h3>
-<p>Manage delivery and supply schedule.</p>
-
-<form>
-<label>Delivery Date:</label><br>
-<input type="date"><br><br>
-
-<label>Product Name:</label><br>
-<input type="text" placeholder="Enter product name"><br><br>
-
-<label>Quantity:</label><br>
-<input type="number" placeholder="Enter quantity"><br><br>
-
-<button type="submit">Schedule</button>
-</form>
+<a href="supplierrecieve.html">
+<button>Submit</button>
+</a>
 
 </div>
 
@@ -89,40 +29,88 @@ Supplier Dashboard
 
 <br>
 
+<input type="text" id="searchInput" placeholder="Search product">
+<button onclick="searchData()">Search</button>
+
 <h2>Supplier Records</h2>
 
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>Crop/Product</th>
-            <th>Farmer/Supplier</th>
-            <th>Quantity</th>
-            <th>Delivery Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+<thead>
+<tr>
+<th>Crop/Product</th>
+<th>Farmer/Supplier</th>
+<th>Quantity</th>
+<th>Delivery Date</th>
+<th>Action</th>
+</tr>
+</thead>
 
-    <tbody id="supplierTable">
-        <tr>
-            <td>Wheat</td>
-            <td>Rahim</td>
-            <td>200</td>
-            <td>2026-03-28</td>
-            <td><button onclick="deleteRow(this)">Delete</button></td>
-        </tr>
-    </tbody>
+<tbody id="supplierTable"></tbody>
+
 </table>
 
-<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System
-</a>
+<a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System</a>
 
 </div>
 
 <script>
-function deleteRow(btn) {
-    let row = btn.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+// Preload example data if none exists
+if (!localStorage.getItem("supplierData")) {
+    const exampleData = [
+        { crop: "Wheat", farmer: "Rahim", qty: 200, date: "2026-03-28" },
+        { crop: "Rice", farmer: "Ali", qty: 150, date: "2026-03-30" },
+        { crop: "Maize", farmer: "Sara", qty: 300, date: "2026-04-01" }
+    ];
+    localStorage.setItem("supplierData", JSON.stringify(exampleData));
 }
+
+// Load table
+function loadData() {
+    let data = JSON.parse(localStorage.getItem("supplierData")) || [];
+    let tableBody = document.getElementById("supplierTable");
+
+    tableBody.innerHTML = "";
+
+    data.forEach((item, index) => {
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${item.crop}</td>
+            <td>${item.farmer}</td>
+            <td>${item.qty}</td>
+            <td>${item.date}</td>
+            <td><button class="deleteBtn" data-index="${index}">Delete</button></td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+
+    document.querySelectorAll(".deleteBtn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            let index = this.getAttribute("data-index");
+            deleteRow(index);
+        });
+    });
+}
+
+function deleteRow(index) {
+    let data = JSON.parse(localStorage.getItem("supplierData")) || [];
+    data.splice(index, 1);
+    localStorage.setItem("supplierData", JSON.stringify(data));
+    loadData();
+}
+
+function searchData() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let rows = document.querySelectorAll("#supplierTable tr");
+
+    rows.forEach(row => {
+        let text = row.cells[0].innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", loadData);
 </script>
 
 </body>
