@@ -19,6 +19,9 @@ Receive Harvested Crops
 
 <form onsubmit="saveData(event)">
 
+<label>Crop ID:</label><br>
+<input type="text" id="cropId" required><br><br>
+
 <label>Crop Name:</label><br>
 <input type="text" id="crop" required><br><br>
 
@@ -43,6 +46,7 @@ Receive Harvested Crops
 function saveData(e) {
     e.preventDefault();
 
+    let cropId = document.getElementById("cropId").value;
     let crop = document.getElementById("crop").value;
     let farmer = document.getElementById("farmer").value;
     let qty = document.getElementById("qty").value;
@@ -50,11 +54,11 @@ function saveData(e) {
 
     let data = JSON.parse(localStorage.getItem("supplierData")) || [];
 
-    data.push({ crop, farmer, qty, date });
+    data.push({ cropId, crop, farmer, qty, date });
 
     localStorage.setItem("supplierData", JSON.stringify(data));
 
-    window.location.href = "supplier.html"; // first page name
+    window.location.href = "supplier.html";
 }
 </script>
 
