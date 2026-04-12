@@ -8,7 +8,7 @@
 <body>
 
 <div class="navbar">
-Farmer Dashboard
+Inventory Manager
 </div>
 
 <div class="main">
@@ -55,37 +55,63 @@ Farmer Dashboard
 </div>
 
 <script>
-// Open second page
-function openCheckPage() {
-    window.location.href = "check.html";
+window.onload = function() {
+    let data = JSON.parse(localStorage.getItem("cropData"));
+
+    if (!data || data.length === 0) {
+        data = [
+            {crop: "Rice", qty: 120, unit: "kg", date: "2026-04-01"},
+            {crop: "Wheat", qty: 80, unit: "kg", date: "2026-03-29"},
+            {crop: "Corn", qty: 60, unit: "kg", date: "2026-04-05"}
+        ];
+        localStorage.setItem("cropData", JSON.stringify(data));
+    }
+
+    loadTable(data);
 }
 
-// Load data
-window.onload = function() {
-    let data = JSON.parse(localStorage.getItem("cropData")) || [];
+function loadTable(data) {
     let table = document.getElementById("dataTable");
-
     table.innerHTML = "";
 
-    data.forEach(item => {
+    data.forEach((item, index) => {
         let row = `<tr>
             <td>${item.crop}</td>
             <td>${item.qty}</td>
             <td>${item.unit}</td>
             <td>${item.date}</td>
-            <td><button onclick="deleteRow(this)">Delete</button></td>
+            <td>
+                <button onclick="editRow(${index})">Edit</button>
+                <button onclick="deleteRow(${index})">Delete</button>
+            </td>
         </tr>`;
         table.innerHTML += row;
     });
 }
 
-// Delete
-function deleteRow(btn) {
-    let row = btn.parentNode.parentNode;
-    row.remove();
+function deleteRow(index) {
+    let data = JSON.parse(localStorage.getItem("cropData")) || [];
+    data.splice(index, 1);
+    localStorage.setItem("cropData", JSON.stringify(data));
+    loadTable(data);
 }
 
-// Search
+function editRow(index) {
+    let data = JSON.parse(localStorage.getItem("cropData")) || [];
+    let item = data[index];
+
+    let crop = prompt("Edit Crop Type:", item.crop);
+    let qty = prompt("Edit Quantity:", item.qty);
+    let unit = prompt("Edit Unit:", item.unit);
+    let date = prompt("Edit Date:", item.date);
+
+    if (crop && qty && unit && date) {
+        data[index] = {crop, qty, unit, date};
+        localStorage.setItem("cropData", JSON.stringify(data));
+        loadTable(data);
+    }
+}
+
 function searchData() {
     let input = document.getElementById("searchInput").value.toLowerCase();
     let rows = document.querySelectorAll("#dataTable tr");
