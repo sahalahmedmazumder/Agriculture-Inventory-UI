@@ -54,7 +54,6 @@ Supplier Dashboard
 </div>
 
 <script>
-// Preload example data if none exists
 if (!localStorage.getItem("supplierData")) {
     const exampleData = [
         { crop: "Wheat", farmer: "Rahim", qty: 200, date: "2026-03-28" },
@@ -64,7 +63,6 @@ if (!localStorage.getItem("supplierData")) {
     localStorage.setItem("supplierData", JSON.stringify(exampleData));
 }
 
-// Load table
 function loadData() {
     let data = JSON.parse(localStorage.getItem("supplierData")) || [];
     let tableBody = document.getElementById("supplierTable");
@@ -79,7 +77,10 @@ function loadData() {
             <td>${item.farmer}</td>
             <td>${item.qty}</td>
             <td>${item.date}</td>
-            <td><button class="deleteBtn" data-index="${index}">Delete</button></td>
+            <td>
+                <button class="editBtn" data-index="${index}">Edit</button>
+                <button class="deleteBtn" data-index="${index}">Delete</button>
+            </td>
         `;
 
         tableBody.appendChild(row);
@@ -91,6 +92,13 @@ function loadData() {
             deleteRow(index);
         });
     });
+
+    document.querySelectorAll(".editBtn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            let index = this.getAttribute("data-index");
+            editRow(index);
+        });
+    });
 }
 
 function deleteRow(index) {
@@ -98,6 +106,22 @@ function deleteRow(index) {
     data.splice(index, 1);
     localStorage.setItem("supplierData", JSON.stringify(data));
     loadData();
+}
+
+function editRow(index) {
+    let data = JSON.parse(localStorage.getItem("supplierData")) || [];
+    let item = data[index];
+
+    let crop = prompt("Edit Crop/Product:", item.crop);
+    let farmer = prompt("Edit Farmer/Supplier:", item.farmer);
+    let qty = prompt("Edit Quantity:", item.qty);
+    let date = prompt("Edit Delivery Date:", item.date);
+
+    if (crop && farmer && qty && date) {
+        data[index] = { crop, farmer, qty, date };
+        localStorage.setItem("supplierData", JSON.stringify(data));
+        loadData();
+    }
 }
 
 function searchData() {
