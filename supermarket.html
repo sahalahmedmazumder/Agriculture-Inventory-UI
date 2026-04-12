@@ -103,7 +103,37 @@ Supermarket Dashboard
             <td>Tomato</td>
             <td>50</td>
             <td>150</td>
-            <td><button onclick="deleteRow(this)">Delete</button></td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Potato</td>
+            <td>80</td>
+            <td>200</td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Onion</td>
+            <td>60</td>
+            <td>120</td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Carrot</td>
+            <td>40</td>
+            <td>90</td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -117,6 +147,24 @@ Supermarket Dashboard
 function deleteRow(btn) {
     let row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
+}
+
+function editRow(btn) {
+    let row = btn.parentNode.parentNode;
+
+    let name = row.cells[0].innerText;
+    let sold = row.cells[1].innerText;
+    let remaining = row.cells[2].innerText;
+
+    let newName = prompt("Edit Product Name:", name);
+    let newSold = prompt("Edit Sold Quantity:", sold);
+    let newRemaining = prompt("Edit Remaining Stock:", remaining);
+
+    if (newName && newSold && newRemaining) {
+        row.cells[0].innerText = newName;
+        row.cells[1].innerText = newSold;
+        row.cells[2].innerText = newRemaining;
+    }
 }
 </script>
 
