@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Agricultural Inventory System</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #0b1a2f;
+    color: white;
+}
+
+.navbar {
+    background: #1f2f46;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.card {
+    background: #1f2f46;
+    padding: 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    background: #2c4366;
+    transform: translateY(-5px);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+Agricultural Inventory Management System
+</div>
+
+<div class="main">
+
+<h2>Select User Role</h2>
+
+<div class="cards">
+
+<div class="card" onclick="openPage('farmer.html')">
+<h3>Farmer</h3>
+<p>Manage crop data</p>
+</div>
+
+<div class="card" onclick="openPage('SupplierDashboard.html')">
+<h3>Supplier</h3>
+<p>Manage supply</p>
+</div>
+
+<div class="card" onclick="openPage('InventoryManager.html')">
+<h3>Inventory Manager</h3>
+<p>Track stock</p>
+</div>
+
+<div class="card" onclick="openPage('SupermarketDashboard.html')">
+<h3>Supermarket</h3>
+<p>View products</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* Function to open page */
+function openPage(page) {
+    window.location.href = page;
+}
+
+</script>
+
+</body>
+</html>

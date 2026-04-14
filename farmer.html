@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farmer Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">Farmer Dashboard</div>
+
+<div class="main">
+    <div class="cards">
+        <div class="card">
+            <h3>Crop Inventory</h3>
+            <p>View and manage your current crop data.</p>
+            <a href="Submitfarmer.html">
+                <button style="background-color: #2ecc71; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">+ Add New Crop</button>
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by Crop Name or ID...">
+        <button onclick="searchData()">Search</button>
+        <button onclick="fetchData()" style="background-color: #7f8c8d;">Reset</button>
+    </div>
+
+    <h2>Submitted Crop Data</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Crop ID</th>
+                <th>Crop Type</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Harvest Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable">
+            </tbody>
+    </table>
+
+    <br>
+    <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System</a>
+</div>
+
+<script>
+    // 1. Fetch data from database on load
+    window.onload = fetchData;
+
+    async function fetchData() {
+        try {
+            const response = await fetch('get_crops.php'); // Your PHP file to SELECT * FROM crops
+            const data = await response.json();
+            renderTable(data);
+        } catch (error) {
+            console.error("Fetch error:", error);
+            document.getElementById("dataTable").innerHTML = "<tr><td colspan='6'>Failed to load data.</td></tr>";
+        }
+    }
+
+    // 2. Display data in the table
+    function renderTable(data) {
+        const tableBody = document.getElementById("dataTable");
+        tableBody.innerHTML = "";
+
+        data.forEach(item => {
+            tableBody.innerHTML += `
+                <tr>
+                    <td><b>${item.crop_id}</b></td>
+                    <td>${item.crop_name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.unit}</td>
+                    <td>${item.harvest_date}</td>
+                    <td>
+                        <button onclick="editRow('${item.crop_id}')" style="background-color: #f1c40f;">Edit</button>
+                        <button onclick="deleteRow('${item.crop_id}')" style="background-color: #e74c3c; color: white;">Delete</button>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    // 3. Delete Logic
+    async function deleteRow(id) {
+        if (confirm(`Delete Crop ID: ${id}?`)) {
+            const response = await fetch('delete_crop.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ id: id })
+            });
+            const res = await response.json();
+            if(res.success) fetchData(); 
+        }
+    }
+
+    // 4. Edit Logic (Simple prompt version)
+    async function editRow(id) {
+        const newName = prompt("Enter new Crop Name:");
+        const newQty = prompt("Enter new Quantity:");
+        
+        if (newName && newQty) {
+            await fetch('update_crop.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ id: id, name: newName, qty: newQty })
+            });
+            fetchData();
+        }
+    }
+
+    // 5. Search Logic (Local Filter)
+    function searchData() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const rows = document.querySelectorAll("#dataTable tr");
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+</script>
+
+</body>
+</html>

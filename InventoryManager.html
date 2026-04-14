@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="navbar">Inventory Management Dashboard</div>
+<div class="main">
+    <div class="cards">
+        <div class="card">
+            <h3>Warehouse Stock</h3>
+            <p>Manage central repository of all agricultural goods.</p>
+            <a href="AddInventory.html"><button style="background-color: #3498db; color: white;">+ Log New Arrival</button></a>
+        </div>
+    </div>
+    <br>
+    <input type="text" id="searchInput" placeholder="Search by Batch or Crop..." onkeyup="searchData()">
+    
+    <h2>Current Warehouse Inventory</h2>
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Batch ID</th>
+                <th>Crop Name</th>
+                <th>Current Stock</th>
+                <th>Warehouse Section</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="inventoryTable"></tbody>
+    </table>
+</div>
+
+<script>
+    window.onload = fetchInventory;
+    async function fetchInventory() {
+        const response = await fetch('get_inventory.php');
+        const data = await response.json();
+        const table = document.getElementById("inventoryTable");
+        table.innerHTML = "";
+        data.forEach(item => {
+            table.innerHTML += `<tr>
+                <td>${item.batch_id}</td>
+                <td>${item.crop_name}</td>
+                <td>${item.qty} ${item.unit}</td>
+                <td>${item.section}</td>
+                <td>
+                    <button onclick="deleteItem('${item.batch_id}')">Remove</button>
+                </td>
+            </tr>`;
+        });
+    }
+
+    function searchData() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#inventoryTable tr");
+        rows.forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supermarket Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">Supermarket Dashboard</div>
+
+<div class="main">
+    <div class="cards">
+        <div class="card">
+            <h3>Store Inventory</h3>
+            <p>Manage shelf stock levels and retail pricing.</p>
+            <a href="AddStoreStock.html">
+                <button>+ Add Stock</button>
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <input type="text" id="searchInput" placeholder="Search Product...">
+    <button onclick="searchData()">Search</button>
+
+    <h2>Retail Stock Data</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Stock ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price/Unit</th>
+                <th>Last Restock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable">
+            </tbody>
+    </table>
+
+    <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System</a>
+</div>
+
+<script>
+    window.onload = fetchData;
+
+    async function fetchData() {
+        try {
+            const response = await fetch('get_market_stock.php');
+            const data = await response.json();
+            loadTable(data);
+        } catch (error) {
+            console.error("Error");
+        }
+    }
+
+    function loadTable(data) {
+        let table = document.getElementById("dataTable");
+        table.innerHTML = "";
+        data.forEach((item) => {
+            table.innerHTML += `<tr>
+                <td><b>${item.stock_id}</b></td>
+                <td>${item.product}</td>
+                <td>${item.qty}</td>
+                <td>$${item.price}</td>
+                <td>${item.date}</td>
+                <td>
+                    <button onclick="editRow('${item.stock_id}')">Edit</button>
+                    <button onclick="deleteRow('${item.stock_id}')">Delete</button>
+                </td>
+            </tr>`;
+        });
+    }
+
+    function searchData() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#dataTable tr");
+        rows.forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+        });
+    }
+</script>
+</body>
+</html>

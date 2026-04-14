@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supplier Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">Supplier Dashboard</div>
+
+<div class="main">
+    <div class="cards">
+        <div class="card">
+            <h3>Manage Shipments</h3>
+            <p>Create and track logistics for crop distribution.</p>
+            <a href="AddShipment.html">
+                <button>+ New Shipment</button>
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <input type="text" id="searchInput" placeholder="Search Shipment ID or Destination">
+    <button onclick="searchData()">Search</button>
+
+    <h2>Active Logistics Data</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Shipment ID</th>
+                <th>Crop Type</th>
+                <th>Quantity</th>
+                <th>Destination</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable">
+            </tbody>
+    </table>
+
+    <a class="backbtn" href="index.html">⬅ Agricultural Inventory Management System</a>
+</div>
+
+<script>
+    window.onload = fetchData;
+
+    async function fetchData() {
+        try {
+            const response = await fetch('get_shipments.php');
+            const data = await response.json();
+            loadTable(data);
+        } catch (error) {
+            console.error("Error loading data");
+        }
+    }
+
+    function loadTable(data) {
+        let table = document.getElementById("dataTable");
+        table.innerHTML = "";
+        data.forEach((item) => {
+            table.innerHTML += `<tr>
+                <td><b>${item.ship_id}</b></td>
+                <td>${item.crop}</td>
+                <td>${item.qty} ${item.unit}</td>
+                <td>${item.destination}</td>
+                <td>${item.status}</td>
+                <td>
+                    <button onclick="editRow('${item.ship_id}')">Edit</button>
+                    <button onclick="deleteRow('${item.ship_id}')">Delete</button>
+                </td>
+            </tr>`;
+        });
+    }
+
+    function searchData() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#dataTable tr");
+        rows.forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+        });
+    }
+</script>
+</body>
+</html>
