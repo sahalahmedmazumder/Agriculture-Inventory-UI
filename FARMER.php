@@ -1,7 +1,6 @@
 <?php 
 include "./db.php"; 
 
-// 1. We use 'crop_name' because that matches your phpMyAdmin Structure
 $sql = "SELECT crop_id, crop_name, quantity, unit, harvest_date FROM crops";
 $result = $conn->query($sql);
 
