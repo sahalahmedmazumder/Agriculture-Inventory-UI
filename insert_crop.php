@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO crops (crop_id, crop_name, quantity, unit, harvest_date) VALUES ('$crop_id', '$crop_name', '$quantity', '$unit', '$harvest_date')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: FARMER.php"); // Redirect back to table
+        header("Location: FARMER.php"); 
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
