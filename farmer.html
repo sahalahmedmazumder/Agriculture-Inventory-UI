@@ -48,12 +48,11 @@
 </div>
 
 <script>
-    // 1. Fetch data from database on load
     window.onload = fetchData;
 
     async function fetchData() {
         try {
-            const response = await fetch('get_crops.php'); // Your PHP file to SELECT * FROM crops
+            const response = await fetch('get_crops.php'); 
             const data = await response.json();
             renderTable(data);
         } catch (error) {
@@ -62,7 +61,6 @@
         }
     }
 
-    // 2. Display data in the table
     function renderTable(data) {
         const tableBody = document.getElementById("dataTable");
         tableBody.innerHTML = "";
@@ -83,7 +81,6 @@
         });
     }
 
-    // 3. Delete Logic
     async function deleteRow(id) {
         if (confirm(`Delete Crop ID: ${id}?`)) {
             const response = await fetch('delete_crop.php', {
@@ -96,7 +93,6 @@
         }
     }
 
-    // 4. Edit Logic (Simple prompt version)
     async function editRow(id) {
         const newName = prompt("Enter new Crop Name:");
         const newQty = prompt("Enter new Quantity:");
@@ -111,7 +107,6 @@
         }
     }
 
-    // 5. Search Logic (Local Filter)
     function searchData() {
         const input = document.getElementById("searchInput").value.toLowerCase();
         const rows = document.querySelectorAll("#dataTable tr");
