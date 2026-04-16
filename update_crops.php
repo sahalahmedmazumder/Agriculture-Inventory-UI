@@ -1,15 +1,13 @@
 <?php 
 include "db.php";
 
-// 1. Handle the Update logic
 if (isset($_POST['update'])) {
     $crop_id      = $_POST['crop_id'];
-    $crop         = $_POST['crop']; // Changed from crop_name to crop
+    $crop         = $_POST['crop']; 
     $quantity     = $_POST['quantity'];
     $unit         = $_POST['unit'];
     $harvest_date = $_POST['harvest_date'];
 
-    // Updated SQL to use 'crop' column
     $sql = "UPDATE `crops` SET 
             `crop` = '$crop', 
             `quantity` = '$quantity', 
@@ -26,7 +24,6 @@ if (isset($_POST['update'])) {
     }
 } 
 
-// 2. Fetch the data
 if (isset($_GET['id'])) {
     $id = $_GET['id']; 
     $sql = "SELECT * FROM `crops` WHERE `crop_id`='$id'";
@@ -34,7 +31,7 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows > 0) {        
         $row = $result->fetch_assoc();
-        $crop_val = $row['crop']; // Changed from crop_name
+        $crop_val = $row['crop'];
         $qty      = $row['quantity'];
         $unit     = $row['unit'];
         $date     = $row['harvest_date'];
